@@ -1,4 +1,4 @@
-package main
+package patterns
 
 // Single Responsibility Principle
 // Payment Service
