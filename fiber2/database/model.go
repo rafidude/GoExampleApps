@@ -6,4 +6,3 @@ type Article struct {
 	Description string `json:"description"`
 	Rate        int    `json:"rate"`
 }
-
