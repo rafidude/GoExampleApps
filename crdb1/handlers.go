@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 )
 
 type user struct {
@@ -14,7 +15,7 @@ type user struct {
 func indexHandler(c *fiber.Ctx, db *sql.DB) error {
 	var res string
 	var users []string
-	rows, err := db.Query("SELECT * FROM users")
+	rows, err := db.Query("SELECT * FROM names")
 	if err != nil {
 		log.Fatalln(err)
 		c.JSON("An error occured")
@@ -36,7 +37,8 @@ func postHandler(c *fiber.Ctx, db *sql.DB) error {
 		return c.SendString(err.Error())
 	}
 	if newUser.Name != "" {
-		_, err := db.Exec("INSERT into users VALUES ($1)", newUser.Name)
+		uuid, _ := uuid.NewRandom()
+		_, err := db.Exec("INSERT into names VALUES ($1, $2)", uuid, newUser.Name)
 		if err != nil {
 			log.Fatalf("An error occured while executing query: %v", err)
 		}
@@ -53,13 +55,13 @@ func putHandler(c *fiber.Ctx, db *sql.DB) error {
 		log.Printf("An error occured: %v", err)
 		return c.SendString(err.Error())
 	}
-	db.Exec("UPDATE users SET Name=$1 WHERE Name=$2", newName.Name, oldName)
+	db.Exec("UPDATE names SET Name=$1 WHERE Name=$2", newName.Name, oldName)
 	return c.Redirect("/")
 }
 
 func deleteHandler(c *fiber.Ctx, db *sql.DB) error {
 	userToDelete := c.Params("name")
 
-	db.Exec("DELETE from users WHERE Name=$1", userToDelete)
+	db.Exec("DELETE from names WHERE Name=$1", userToDelete)
 	return c.SendString("deleted")
 }
