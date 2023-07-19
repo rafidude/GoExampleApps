@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>{{.Title}}</h1>
+        <p>{{.Description}}</p>
+        {{range .Todos}}
+        <p>{{.Title}}: {{if .Done}}Done{{else}}Not Done{{end}}</p>
+        {{end}}
+    </body>
+</html>

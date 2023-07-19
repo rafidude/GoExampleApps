@@ -1,0 +1,33 @@
+<h1>Manage Todos</h1>
+<form id="todoForm">
+    <label for="todo">Todo:</label>
+    <input type="text" id="title" name="title" placeholder="Title" />
+    <label for="completed">Completed:</label>
+    <input type="checkbox" id="completed" name="completed" />
+    <button type="submit" id="saveButton">Save</button>
+</form>
+
+<table id="todoTable">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{range .Todos}}
+        <tr class="todo-row" data-id="{{.Id}}">
+            <td class="todo-title">{{.Title}}</td>
+            <td class="todo-completed">
+                {{if .Done}}Done{{else}}Not Done{{end}}
+            </td>
+            <td><button class="edit-button">Edit</button></td>
+            <td><button class="delete-button">Delete</button></td>
+        </tr>
+        {{end}}
+    </tbody>
+</table>
+
+<script src="/todo.js"></script>

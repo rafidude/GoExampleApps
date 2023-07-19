@@ -1,0 +1,14 @@
+<h1>Todo Form</h1>
+<form action="/save" method="POST">
+    <label for="todo">Todo:</label><br />
+    <input type="todo" id="todo" name="todo" /><br />
+    <label for="completed">Completed:</label><br />
+    <input type="checkbox" id="completed" name="completed" /><br />
+    <input type="submit" value="Save" />
+</form>
+
+<h1>{{.Title}}</h1>
+<p>{{.Description}}</p>
+{{range .Todos}}
+<p>{{.Title}}: {{if .Done}}Done{{else}}Not Done{{end}}</p>
+{{end}}

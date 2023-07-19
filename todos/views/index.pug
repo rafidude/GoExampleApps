@@ -1,2 +1,11 @@
 h1 {{.Title}}
 h3 {{.Description}}
+
+ul
+    each {{.Todos}}
+        if {{.Done}}
+            li {{.Title}} (Done)
+        else
+            li {{.Title}}
+        end
+    end
