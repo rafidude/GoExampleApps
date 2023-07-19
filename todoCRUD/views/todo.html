@@ -1,30 +1,72 @@
-<h1>Manage Todos</h1>
-<form id="todoForm">
-    <label for="todo">Todo:</label>
-    <input type="text" id="title" name="title" placeholder="Title" />
-    <label for="completed">Completed:</label>
-    <input type="checkbox" id="completed" name="completed" />
-    <button type="submit" id="saveButton">Save</button>
+<h1 class="text-2xl font-bold mb-5">Manage Todos</h1>
+
+<form id="todoForm" class="mb-5 bg-white p-5 rounded shadow">
+    <div class="mb-4">
+        <label for="todo" class="block text-sm font-bold mb-2">Todo:</label>
+        <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Title"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+    </div>
+    <div class="mb-4">
+        <label for="completed" class="block text-sm font-bold mb-2"
+            >Completed:</label
+        >
+        <input
+            type="checkbox"
+            id="completed"
+            name="completed"
+            class="mr-2 leading-tight"
+        />
+    </div>
+    <button
+        type="submit"
+        id="saveButton"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    >
+        Save
+    </button>
 </form>
 
-<table id="todoTable">
+<table id="todoTable" class="w-full bg-white p-5 rounded shadow">
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Status</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th class="border px-4 py-2 text-left text-sm font-medium">
+                Title
+            </th>
+            <th class="border px-4 py-2 text-left text-sm font-medium">
+                Status
+            </th>
+            <th class="border px-4 py-2 text-left text-sm font-medium">Edit</th>
+            <th class="border px-4 py-2 text-left text-sm font-medium">
+                Delete
+            </th>
         </tr>
     </thead>
     <tbody>
         {{range .Todos}}
         <tr class="todo-row" data-id="{{.Id}}">
-            <td class="todo-title">{{.Title}}</td>
-            <td class="todo-completed">
+            <td class="todo-title border px-4 py-2 text-sm">{{.Title}}</td>
+            <td class="todo-completed border px-4 py-2 text-sm">
                 {{if .Done}}Done{{else}}Not Done{{end}}
             </td>
-            <td><button class="edit-button">Edit</button></td>
-            <td><button class="delete-button">Delete</button></td>
+            <td class="border px-4 py-2 text-sm">
+                <button
+                    class="edit-button bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                >
+                    Edit
+                </button>
+            </td>
+            <td class="border px-4 py-2 text-sm">
+                <button
+                    class="delete-button bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                >
+                    Delete
+                </button>
+            </td>
         </tr>
         {{end}}
     </tbody>
