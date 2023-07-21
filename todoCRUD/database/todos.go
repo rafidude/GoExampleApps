@@ -37,19 +37,19 @@ func GetTodos() ([]Todo, error) {
 	return arrTodos, nil
 }
 
-func SaveTodo(todo string, completed bool) error {
+func SaveTodo(todo string, completed bool) (string, error) {
 	db, err := setupDatabase()
 	if err != nil {
-		return err
+		return "", err
 	}
 	defer db.Close()
-
-	_, err = db.Exec("INSERT INTO todos (todo, completed) VALUES ($1, $2)", todo, completed)
+	var id string
+	err = db.QueryRow("INSERT INTO todos (todo, completed) VALUES ($1, $2) RETURNING id", todo, completed).Scan(&id)
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	return nil
+	return id, nil
 }
 
 func UpdateTodo(id string, todo string, completed bool) error {

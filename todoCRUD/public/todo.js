@@ -29,7 +29,7 @@ form.addEventListener('submit', async (event) => {
             }
 
             todo = await response.json()
-
+            console.log(todo)
             // Update the row in the table
             const row = document.querySelector(`.todo-row[data-id="${id}"]`)
             row.querySelector('.todo-title').innerText = todo.title

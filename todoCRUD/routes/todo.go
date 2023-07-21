@@ -1,8 +1,6 @@
 package routes
 
 import (
-	"fmt"
-
 	"github.com/gofiber/fiber/v2"
 	"lasa.ai/todoCRUD/database"
 )
@@ -33,17 +31,18 @@ func Todo(c *fiber.Ctx) error {
 func SaveTodo(c *fiber.Ctx) error {
 	todo := c.FormValue("title")
 	completed := c.FormValue("completed")
-	fmt.Println("SaveTodo", todo, completed)
+
 	done := false
 	if completed == "true" {
 		done = true
 	}
 
-	err := database.SaveTodo(todo, done)
+	id, err := database.SaveTodo(todo, done)
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
 	return c.Status(200).JSON(fiber.Map{
+		"id": id, "title": todo, "completed": completed,
 		"message": "Todo is successfully saved",
 	})
 }
@@ -52,7 +51,6 @@ func UpdateTodo(c *fiber.Ctx) error {
 	id := c.Params("id")
 	todo := c.FormValue("title")
 	completed := c.FormValue("completed")
-	fmt.Println("UpdateTodo", id, todo, completed)
 	done := false
 	if completed == "true" {
 		done = true
@@ -62,13 +60,13 @@ func UpdateTodo(c *fiber.Ctx) error {
 		return c.Status(500).SendString(err.Error())
 	}
 	return c.Status(200).JSON(fiber.Map{
+		"id": id, "title": todo, "completed": completed,
 		"message": "Todo is successfully updated",
 	})
 }
 
 func DeleteTodo(c *fiber.Ctx) error {
 	id := c.Params("id")
-	fmt.Println("DeleteTodo", id)
 	err := database.DeleteTodo(id)
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
