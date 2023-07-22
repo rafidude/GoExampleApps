@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html/v2"
-	"lasa.ai/todoCRUD/routes"
+	"lasa.ai/todoCRUD/handlers"
 )
 
 func main() {
@@ -14,11 +14,14 @@ func main() {
 
 	app.Static("/", "./public")
 
-	app.Get("/", routes.Home)
-	app.Get("/todos", routes.Todo)
-	app.Post("/todos", routes.SaveTodo)
-	app.Post("/todos/:id", routes.UpdateTodo)
-	app.Delete("/todos/:id", routes.DeleteTodo)
+	app.Get("/", handlers.Home)
 
+	// Todo handlers
+	app.Get("/todos", handlers.Todo)
+	app.Post("/todos", handlers.SaveTodo)
+	app.Post("/todos/:id", handlers.UpdateTodo)
+	app.Delete("/todos/:id", handlers.DeleteTodo)
+
+	// Some other entity handlers
 	app.Listen(":3000")
 }
